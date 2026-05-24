@@ -328,6 +328,7 @@
   <div class="wrap">
     <div class="brand">◇ <b>THE ORCHESTRATION METHOD</b></div>
     <div class="links" id="navlinks">
+      <a href="#author">Author's Note</a>
       <a href="#laws">Two Laws</a>
       <a href="#layers">Two Layers</a>
       <a href="#flow">Flowchart</a>
@@ -340,6 +341,7 @@
       <a href="#invariants">Invariants</a>
       <a href="#loop">The Clean Loop</a>
       <a href="#processing">Processing</a>
+      <a href="#board">Campaign Board</a>
       <a href="#case">One Example</a>
     </div>
   </div>
@@ -378,6 +380,23 @@
     <p class="byline" style="margin-top:22px;font-size:13.5px;color:var(--mut);letter-spacing:.2px">Created May 2026 by <b style="color:var(--ink)">Tom</b> <span style="color:var(--dim)">(TomaDev23)</span>, with <b style="color:var(--ink)">Claude (Opus 4.7)</b> as co-author · MIT License</p>
   </div>
 </header>
+
+<!-- ============ WORD FROM THE AUTHOR ============ -->
+<section id="author">
+  <div class="wrap">
+    <p class="eyebrow reveal" style="color:var(--gold)">Word from the author</p>
+    <h2 class="reveal">Word from the Author</h2>
+    <div class="reveal" style="max-width:880px;border:1px solid rgba(255,209,102,.28);border-radius:16px;padding:22px 26px 24px;background:linear-gradient(180deg,rgba(255,209,102,.05),rgba(255,209,102,.012));color:var(--ink);line-height:1.8;font-size:15.5px">
+      <span class="tag" style="color:var(--gold);border-color:rgba(255,209,102,.4)">&#9997; Human-written &mdash; not AI-generated</span>
+      <p style="margin-top:16px">Welcome. I am pleased to share my latest progress and discoveries in the field of autonomy for AI agents in complex code projects. This document, created by an AI agent, has been carefully crafted by a human after developing a method over hundreds of hours of work using the latest AI tools over the past year.</p>
+      <p>Working quickly and covering a broad surface without a robust method may appear feasible and easy, but in reality it creates numerous gaps and leads to drift due to agents freely interpreting and filling knowledge gaps with fabricated information, which eventually causes deviation from the original intent. Sometimes these issues are hidden and difficult to detect, but they compound rapidly as multiple agents negotiate, work on the same files, and move without coordination. Even when agents are confined to separate, isolated work trees, the ongoing negotiation over developing files and the need for complex merges and compromises remains unresolved because agents may pull and push in different directions.</p>
+      <p>Furthermore, this system places most of the burden on the human operator to maintain the thread for the agents and to initiate doubt, checks, and audits. The operator must remember the full scope and continuously steer the various agents working on different aspects in the right direction. This creates additional workload and high context load, resulting in a slow process in which the operator must sit at the machine, wait for the agent to complete its task, and then provide further guidance. Even when a plan is considered to exist, it does not guarantee coverage of all relevant aspects. This returns to the known limitation of agents to generate knowledge pockets independently. Only a plan developed with an understanding of current technological limitations and strategies to address them can be trusted and built autonomously over an extended period, reducing the need for major fixes or refactoring upon delivery.</p>
+      <p>The presented method aims to resolve both planning and execution, achieving autonomy as an outcome of effective planning, and leverages current technologies without requiring complex setups, automation, MCPs, or additional tools.</p>
+      <p>This document is intended for human readers to comprehend the nuances of the method. It also exists as a skill that can be immediately applied to your project (<a href="https://github.com/TomaDev23/Maestro" style="color:var(--cyan);text-decoration:none">github.com/TomaDev23/Maestro</a>); however, without adopting the mental model underlying this skill, its benefits will be limited compared to fully understanding the concepts presented herein.</p>
+      <p style="margin-bottom:0;text-align:right;color:var(--mut);font-style:italic">&mdash; Tom <span style="color:var(--dim)">(TomaDev23)</span></p>
+    </div>
+  </div>
+</section>
 
 <!-- ============ THE TWO LAWS ============ -->
 <section id="laws">
@@ -850,6 +869,70 @@
     <div class="callout cy reveal">
       <span class="t">Cook each round down to its essence</span>
       <p><em>"The digest is the signal; the pile is the noise. Cook each round down to its essence, build the next round on that — and trust the nothing-lost watch to prove you dropped nothing that mattered."</em></p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ THE CAMPAIGN BOARD ============ -->
+<section id="board">
+  <div class="wrap">
+    <p class="eyebrow reveal">Visibility for the operator</p>
+    <h2 class="reveal">Keep a campaign board &mdash; your window into the work.</h2>
+    <p class="lead reveal">As a campaign grows, the agents develop their own shorthand &mdash; ledger marks, dispatch IDs, wave numbers, decision codes. That chatter keeps the <em>agents</em> coordinated, but to a human trying to catch up it is noise. You need one place that answers, at a glance: what are we doing, what are the rules, and where are we?</p>
+    <p class="lead reveal">So for every campaign, stand up a lightweight HTML front-end &mdash; or even a single static HTML board &mdash; that holds, at minimum: the <b>rules</b>, the <b>framing</b>, the <b>intent</b>, and a <b>matrix of tasks showing their flow and aggregate progress</b>. Lean on <b>gamified indicators</b> &mdash; progress bars, status chips, counts &mdash; so the state reads in seconds, not paragraphs.</p>
+    <style>
+      .cb{margin-top:20px;border:1px solid var(--line2);border-radius:16px;background:rgba(10,13,26,.6);padding:18px}
+      .cb-top{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
+      @media(max-width:680px){.cb-top{grid-template-columns:1fr}}
+      .cb-card{border:1px solid var(--line2);border-radius:10px;padding:11px 13px;background:rgba(20,24,44,.5)}
+      .cb-card .k{font-family:var(--mono);font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--dim)}
+      .cb-card .v{color:var(--mut);font-size:12.5px;margin-top:5px;line-height:1.5}
+      .cb-prog{display:flex;align-items:center;gap:12px;margin:4px 0 12px}
+      .cb-bar{flex:1;height:10px;border-radius:999px;background:rgba(255,255,255,.06);overflow:hidden;border:1px solid var(--line2)}
+      .cb-bar i{display:block;height:100%;background:linear-gradient(90deg,var(--cyan),var(--green))}
+      .cb-chips{display:flex;gap:8px;flex-wrap:wrap;font-family:var(--mono);font-size:11px;margin-bottom:12px}
+      .cb-chip{padding:3px 9px;border-radius:999px;border:1px solid var(--line2)}
+      .cb-mtx{width:100%;border-collapse:collapse;font-size:12.5px}
+      .cb-mtx th{text-align:left;font-family:var(--mono);font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--dim);padding:6px 8px;border-bottom:1px solid var(--line2)}
+      .cb-mtx td{padding:7px 8px;border-bottom:1px solid rgba(120,140,255,.07);color:var(--mut)}
+      .cb-st{font-family:var(--mono);font-size:10.5px;padding:2px 8px;border-radius:999px}
+      .cb-tb{height:7px;width:80px;border-radius:999px;background:rgba(255,255,255,.06);overflow:hidden;display:inline-block;vertical-align:middle}
+      .cb-tb i{display:block;height:100%}
+    </style>
+    <div class="cb reveal" role="img" aria-label="Illustrative campaign board">
+      <div class="cb-top">
+        <div class="cb-card"><div class="k">Rules</div><div class="v">One editor &middot; build behind gates &middot; nothing-lost on every fold &middot; no fallbacks</div></div>
+        <div class="cb-card"><div class="k">Framing</div><div class="v">Replace the ad-hoc auth layer with a typed, opt-in module &mdash; strangler-fig, no big-bang.</div></div>
+        <div class="cb-card"><div class="k">Intent</div><div class="v">Ship a verified plan the team can build autonomously, with minimal rework on delivery.</div></div>
+      </div>
+      <div class="cb-prog">
+        <span style="font-family:var(--mono);font-size:11px;color:var(--mut)">CAMPAIGN&nbsp;PROGRESS</span>
+        <span class="cb-bar"><i style="width:62%"></i></span>
+        <b style="color:var(--green)">62%</b>
+      </div>
+      <div class="cb-chips">
+        <span class="cb-chip" style="color:var(--green);border-color:rgba(94,242,160,.35)">&#10003; 8 done</span>
+        <span class="cb-chip" style="color:var(--cyan);border-color:rgba(79,214,255,.35)">&#9680; 3 in-flight</span>
+        <span class="cb-chip" style="color:var(--gold);border-color:rgba(255,209,102,.35)">&#8214; 2 awaiting decision</span>
+        <span class="cb-chip" style="color:var(--red);border-color:rgba(255,122,122,.35)">&#9940; 1 blocked</span>
+        <span class="cb-chip" style="color:var(--dim)">&hellip; 4 queued</span>
+      </div>
+      <table class="cb-mtx">
+        <thead><tr><th>Task</th><th>Depends on</th><th>Status</th><th>Progress</th></tr></thead>
+        <tbody>
+          <tr><td>W1 &middot; Surface map</td><td>&mdash;</td><td><span class="cb-st" style="background:rgba(94,242,160,.14);color:var(--green)">DONE</span></td><td><span class="cb-tb"><i style="width:100%;background:var(--green)"></i></span></td></tr>
+          <tr><td>W2 &middot; Audit of map</td><td>W1</td><td><span class="cb-st" style="background:rgba(94,242,160,.14);color:var(--green)">DONE</span></td><td><span class="cb-tb"><i style="width:100%;background:var(--green)"></i></span></td></tr>
+          <tr><td>W3 &middot; Math lane</td><td>W2</td><td><span class="cb-st" style="background:rgba(79,214,255,.14);color:var(--cyan)">IN-FLIGHT</span></td><td><span class="cb-tb"><i style="width:70%;background:var(--cyan)"></i></span></td></tr>
+          <tr><td>W4 &middot; Code lane</td><td>W2</td><td><span class="cb-st" style="background:rgba(79,214,255,.14);color:var(--cyan)">IN-FLIGHT</span></td><td><span class="cb-tb"><i style="width:45%;background:var(--cyan)"></i></span></td></tr>
+          <tr><td>W5 &middot; Connect + audit</td><td>W3 &middot; W4</td><td><span class="cb-st" style="background:rgba(255,209,102,.14);color:var(--gold)">AWAITING</span></td><td><span class="cb-tb"><i style="width:12%;background:var(--gold)"></i></span></td></tr>
+          <tr><td>W6 &middot; Scorer fix</td><td>W5</td><td><span class="cb-st" style="background:rgba(255,122,122,.14);color:var(--red)">BLOCKED</span></td><td><span class="cb-tb"><i style="width:0%"></i></span></td></tr>
+        </tbody>
+      </table>
+      <p style="font-family:var(--mono);font-size:10.5px;color:var(--dim);margin:12px 0 0;text-align:center">&uarr; illustrative &mdash; a board-keeper seat refreshes this from the ledger as work lands</p>
+    </div>
+    <div class="callout reveal">
+      <span class="t">The board is the human-facing counterpart to the ledger</span>
+      <p>The Coordination Ledger keeps the <b>agents</b> in sync; the board keeps <b>you</b> in sync. And it is not an afterthought &mdash; orchestrator mode asks the manager to coordinate a dedicated <b>board-keeper</b> seat that refreshes the board as work lands, so the picture is always current without you parsing raw agent chatter. As the surface grows and the inter-agent jargon thickens, this is what keeps the operator oriented instead of drowning in it.</p>
     </div>
   </div>
 </section>
