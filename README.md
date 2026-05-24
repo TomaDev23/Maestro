@@ -11,7 +11,7 @@ This repository contains two things.
 A single, self-contained explainer (no external dependencies) that walks through the whole method: the two laws, the manager-progression flowchart, the agent-type taxonomy, the dispatch anatomy, multi-dimensional convergence, the audit superstructure, paired/shadow orchestration, the operating principles, and a worked example.
 
 - **Open it locally:** open `index.html` in any browser.
-- **Live version** (once GitHub Pages is enabled on this repo): **https://tomadev23.github.io/maestro/**
+- **Live version** (once GitHub Pages is enabled on this repo): **https://tomadev23.github.io/Maestro/**
 
 ## 2. The skill — `orchestrator-mode/` (packaged at `dist/orchestrator-mode.skill`)
 
