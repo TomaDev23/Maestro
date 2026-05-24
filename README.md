@@ -1,21 +1,21 @@
-# The Orchestration Method
+# Maestro
 
-A method for running large, campaign-class work with AI agents — and the tooling to put it into practice.
+**One conductor, many agents.** A method for running large, campaign-class work with AI — and the skill that puts it into practice.
 
 One human operator directs a **manager** agent that, instead of doing the work in its own context, **orchestrates** waves of typed sub-agents (scouts, mathematicians, builders, auditors) to plan and execute work too large for any single context to hold. You plan to convergence across independent angles *before* you execute; every deliverable is checked by a *different* agent than the one that produced it; and the largest builds run two peer managers at once — an **Executor** and a live **Shadow** auditor — coordinating through a shared, append-only ledger.
 
 This repository contains two things.
 
-## 1. The teaching page — `Orchestration_Method.html`
+## 1. The teaching page — `index.html`
 
 A single, self-contained explainer (no external dependencies) that walks through the whole method: the two laws, the manager-progression flowchart, the agent-type taxonomy, the dispatch anatomy, multi-dimensional convergence, the audit superstructure, paired/shadow orchestration, the operating principles, and a worked example.
 
-- **Open it locally:** open `Orchestration_Method.html` in any browser.
-- **Live version** (once GitHub Pages is enabled on this repo): `https://tomadev23.github.io/orchestration-method/Orchestration_Method.html`
+- **Open it locally:** open `index.html` in any browser.
+- **Live version** (once GitHub Pages is enabled on this repo): **https://tomadev23.github.io/maestro/**
 
 ## 2. The skill — `orchestrator-mode/` (packaged at `dist/orchestrator-mode.skill`)
 
-A portable Claude skill that operationalizes the method. When it loads, the agent adopts the orchestrator disposition: it recognizes campaign-class scope, plans to convergence before executing, dispatches typed sub-agents in waves, runs a mandatory independent secondary audit on any plan or code, and escalates to paired/Senior orchestration on the biggest builds — while staying lean on simple tasks (it will **not** spawn a swarm for a one-line edit or a quick question).
+A portable Claude skill that operationalizes the method. You invoke it by saying **"orchestrator mode"** (or it engages itself when it recognizes campaign-class work). When it loads, the agent adopts the orchestrator disposition: it recognizes campaign-class scope, plans to convergence before executing, dispatches typed sub-agents in waves, runs a mandatory independent secondary audit on any plan or code, and escalates to paired/Senior orchestration on the biggest builds — while staying lean on simple tasks (it will **not** spawn a swarm for a one-line edit or a quick question).
 
 It also carries an **operating-principles** layer: a set of cross-cutting engineering rules (root cause over workaround, verify broadly, match ceremony to real stakes, decide-don't-block, …), each stated with its reasoning so it can be applied with judgment.
 
