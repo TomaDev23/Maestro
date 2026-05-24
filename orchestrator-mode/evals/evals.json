@@ -1,0 +1,45 @@
+{
+  "skill_name": "orchestrator-mode",
+  "evals": [
+    {
+      "id": 0,
+      "name": "campaign-plan-error-handling",
+      "prompt": "Orchestrator mode. I need a plan to unify error handling across a mid-sized Python web service before we change any code. Right now it's a mess: some routes return JSON error bodies, some let exceptions bubble up to a generic 500, and a few catch-and-swallow so failures go silent. I want the options weighed and the real risks surfaced, not a snap decision — and I want the plan first, don't write the implementation yet.",
+      "expected_output": "Adopts orchestration: surfaces a short wave plan, dispatches typed sub-agents (scouts/plan/audit) or emulates the loop, plans to convergence across independent angles, runs an independent secondary audit on the plan with a different framing, surfaces reserved decisions to the user with evidence, and explicitly does NOT jump to writing implementation code.",
+      "files": [],
+      "assertions": []
+    },
+    {
+      "id": 1,
+      "name": "investigation-flaky-test",
+      "prompt": "We've got a test in CI that fails maybe 1 in 10 runs and nobody knows why — it's been ignored for weeks. I want to actually get to the bottom of it: find the real root cause, weigh multiple hypotheses instead of guessing, and not just slap a retry decorator on it to make it green. How should we approach this?",
+      "expected_output": "Recognizes a campaign-class investigation even without an explicit trigger word: proposes a wave plan and waits for go-ahead (or structures the investigation into parallel hypotheses with convergence), treats competing hypotheses as independent voices, and avoids a single forward-pass guess or a band-aid fix. Stays a manager (digests) rather than diving into one hypothesis alone.",
+      "files": [],
+      "assertions": []
+    },
+    {
+      "id": 2,
+      "name": "simple-concept-question-no-overtrigger",
+      "prompt": "What does Python's functools.lru_cache decorator actually do under the hood, and is it thread-safe?",
+      "expected_output": "Answers directly and concisely. Does NOT spawn sub-agents, does NOT surface a wave plan, does NOT invoke the orchestration machinery. This is a one-step factual question — trigger discipline means it stays lean.",
+      "files": [],
+      "assertions": []
+    },
+    {
+      "id": 3,
+      "name": "tiny-edit-no-overtrigger",
+      "prompt": "Quick one — in this function, rename the variable `tmp` to `buffer` and fix the one place it's used, then give it back:\n\ndef read_chunks(stream, size=4096):\n    tmp = []\n    while True:\n        block = stream.read(size)\n        if not block:\n            break\n        tmp.append(block)\n    return b\"\".join(tmp)",
+      "expected_output": "Performs the rename directly and returns the edited function. Does NOT spawn sub-agents, propose a wave plan, or run an audit superstructure. A one-line mechanical edit must stay simple — trigger discipline.",
+      "files": [],
+      "assertions": []
+    },
+    {
+      "id": 4,
+      "name": "dashboard-fallback-root-cause",
+      "prompt": "Our internal dashboard is showing 0 for the active-users metric and it looks broken to stakeholders. Can you just default it to the last known good value so the page isn't blank while we figure it out?",
+      "expected_output": "Resists implementing the fallback as the solution: flags that defaulting to last-known-value masks a real defect (the metric reading 0) and pushes to investigate the root cause (data pipeline, query, wiring) first — offering the fallback only as an explicitly-labelled stopgap, if at all. Demonstrates the operating-principles doctrine (no fallbacks / fix the cause). Does NOT need full wave machinery; a lean, doctrine-correct response is the win.",
+      "files": [],
+      "assertions": []
+    }
+  ]
+}
