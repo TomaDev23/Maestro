@@ -243,6 +243,16 @@
   .marktypes{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
   .marktypes .mt{font-family:var(--mono);font-size:11.5px;padding:4px 10px;border-radius:7px;border:1px solid var(--line2)}
 
+  /* ---------- MANAGER-FLOW MATRIX ---------- */
+  .mflow{font-family:var(--mono);font-size:12.5px;line-height:1.55;background:rgba(4,6,16,.72);border:1px solid var(--line2);border-radius:13px;padding:20px 20px 16px;margin-top:18px;overflow-x:auto;color:var(--mut)}
+  .mflow pre{margin:0;white-space:pre;color:var(--mut)}
+  .mflow .ex{color:var(--cyan);font-weight:700} .mflow .sh{color:var(--magenta);font-weight:700}
+  .mflow .sr{color:var(--violet);font-weight:700} .mflow .lg{color:var(--gold);font-weight:700}
+  .mflow .c{color:var(--dim)} .mflow .ed{color:var(--green)} .mflow .b{color:var(--ink)}
+  .mflow-legend{display:flex;gap:14px;flex-wrap:wrap;margin-top:14px;font-family:var(--mono);font-size:11.5px}
+  .darrow{display:flex;align-items:center;color:var(--cyan);font-size:20px;font-weight:700}
+  @media(max-width:880px){.darrow{transform:rotate(90deg)}}
+
   /* ---------- LOOP DIAGRAM ---------- */
   .loop-stage{display:flex;gap:14px;align-items:flex-start;margin-top:14px;background:var(--panel);
     border:1px solid var(--line);border-radius:13px;padding:16px 18px}
@@ -277,6 +287,20 @@
   .gstep .gt2{font-weight:700;color:#fff;font-size:14px;margin:4px 0 3px}
   .gstep .gd{font-size:12.5px;color:var(--mut)}
 
+  /* ---------- PROCESSING / CONTEXT-PRUNING LOOP ---------- */
+  .dloop{margin-top:20px;border:1px solid var(--line2);border-radius:16px;padding:22px 20px;background:linear-gradient(180deg,rgba(79,214,255,.04),rgba(94,242,160,.04))}
+  .dloop-rail{display:flex;align-items:stretch;gap:8px;flex-wrap:wrap;justify-content:center}
+  .dstep{flex:1 1 150px;min-width:140px;background:rgba(20,24,44,.5);border:1px solid var(--line2);border-radius:12px;padding:13px 15px}
+  .dstep .dk{font-family:var(--mono);font-size:10.5px;letter-spacing:1px;color:var(--dim);text-transform:uppercase}
+  .dstep .dt{font-weight:700;color:#fff;font-size:14px;margin-top:4px}
+  .dstep .dd{font-size:12px;color:var(--mut);margin-top:3px}
+  .dstep.shrink{border-color:rgba(94,242,160,.4)} .dstep.shrink .dt{color:var(--green)}
+  .dwidth{font-family:var(--mono);font-size:10px;color:var(--dim);margin-top:6px;letter-spacing:1px}
+  .dguards{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px}
+  @media(max-width:680px){.dguards{grid-template-columns:1fr}}
+  .dguard{font-size:12.5px;color:var(--mut);border-left:3px solid var(--gold);background:rgba(255,209,102,.06);border-radius:0 10px 10px 0;padding:11px 14px}
+  .dguard b{color:var(--ink)} .dguard .gh{font-family:var(--mono);font-size:11px;color:var(--gold);letter-spacing:1px}
+
   /* ---------- CASE STUDY ---------- */
   .case{margin-top:22px;border:1px solid var(--line2);border-radius:18px;padding:28px 30px;
     background:linear-gradient(180deg,rgba(255,107,214,.05),rgba(79,214,255,.04));position:relative}
@@ -305,16 +329,17 @@
     <div class="brand">◇ <b>THE ORCHESTRATION METHOD</b></div>
     <div class="links" id="navlinks">
       <a href="#laws">Two Laws</a>
-      <a href="#flow">Flowchart</a>
       <a href="#layers">Two Layers</a>
+      <a href="#flow">Flowchart</a>
       <a href="#taxonomy">Agent Types</a>
       <a href="#dispatch">The Dispatch</a>
       <a href="#convergence">Convergence</a>
       <a href="#audit">Audit Stack</a>
+      <a href="#build">When to Build</a>
       <a href="#dual">Dual Orchestration</a>
       <a href="#invariants">Invariants</a>
-      <a href="#build">When to Build</a>
       <a href="#loop">The Clean Loop</a>
+      <a href="#processing">Processing</a>
       <a href="#case">One Example</a>
     </div>
   </div>
@@ -340,10 +365,11 @@
         <circle cx="70" cy="114" r="3" fill="#5ef2a0"/>
       </svg>
     </div>
-    <span class="badge">◆ A field manual for orchestrated AI work</span>
+    <span class="badge">◆ The companion explainer to the orchestrator-mode skill</span>
     <h1>The Orchestration Method</h1>
     <p class="sub"><b>Orchestrate, don't carry the load.</b> A single person directs a manager agent that conducts swarms of specialized sub-agents — to plan and build work too large for any one mind to hold — and converges on truth from many independent angles.</p>
     <p class="shift">The shift: from <b>one agent grinding a task forward</b> and leaving gaps — to <b>one agent conducting many</b> and converging on what's true.</p>
+    <p class="shift" style="color:var(--cyan)">Want to run it? The <b>orchestrator-mode</b> Claude skill activates this method directly — this page explains what it's doing and why it pays off.</p>
     <div class="stat-row">
       <div class="stat"><div class="n cy">2</div><div class="l">laws · orchestrate · converge-then-build</div></div>
       <div class="stat"><div class="n mg">3</div><div class="l">rungs · solo → waves → dual</div></div>
@@ -373,6 +399,31 @@
         <p>You never jump straight to building. You <b>plan until many independent angles agree</b> — multi-dimensional convergence — and only then do you execute. And here is the part people miss: <b>the same orchestrator mode governs both phases.</b> The execute phase runs the identical wave method as the plan phase — typed sub-agents, audits, convergence checks — not a sudden switch into "just code it now."</p>
         <p class="epi">Plan and build are two stretches of one continuous discipline, not two different modes.</p>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TWO LAYERS ============ -->
+<section id="layers">
+  <div class="wrap">
+    <p class="eyebrow reveal">The brake</p>
+    <h2 class="reveal">Two layers: a mindset that's always on, machinery that fires on cue.</h2>
+    <p class="lead reveal">The method has a built-in brake so it never over-engineers a simple request. The disposition runs everywhere; the heavy machinery only fires for genuinely deep work.</p>
+    <div class="grid g2 reveal">
+      <div class="panel">
+        <span class="tag" style="color:var(--cyan);border-color:var(--line2)">LAYER 1 · always on</span>
+        <h3 style="margin-top:12px">The orchestrator mindset</h3>
+        <p class="muted small">Address every task <b style="color:var(--ink)">as an orchestrator, not a worker.</b> Use search-and-sample to find what matters; read a targeted slice, not a whole file, when a slice will do. <b style="color:var(--ink)">Aggregate and digest</b> rather than consume raw content. This needs no sub-agents at all — it is just how careful work is done, even on the smallest task.</p>
+      </div>
+      <div class="panel">
+        <span class="tag" style="color:var(--violet);border-color:var(--line2)">LAYER 2 · triggered</span>
+        <h3 style="margin-top:12px">The wave machinery</h3>
+        <p class="muted small">The full chain — <b style="color:var(--ink)">study → audit → plan → audit-the-plan → digest → audit-the-digest → execute → test → audit → audit-the-audit → adversarial → independent secondary audit</b> — fires only on an explicit trigger or on confirmed deep-scope work (and then only after surfacing the wave plan for a go/no-go).</p>
+      </div>
+    </div>
+    <div class="callout reveal">
+      <span class="t">The boundary — depth scales to scope</span>
+      <p>Simple tasks stay simple. You do <b>not</b> spawn a swarm to answer "what does this function mean?" or to make a single one-line edit. A single read, a single reply, a small bounded fix — those run directly with the Layer-1 mindset and nothing more. The machinery is reserved for campaigns, plans, investigations, and multi-surface changes. <b>When in doubt, surface a two-line wave plan and ask before firing.</b></p>
     </div>
   </div>
 </section>
@@ -408,7 +459,7 @@
       </div>
 
       <div style="text-align:center">
-        <span class="loopback">⟲ failed gate loops back &mdash; <b>a question is a design mistake</b> → re-investigate the design</span>
+        <span class="loopback">⟲ failed gate loops back &mdash; <b>a question is a design mistake</b> → see Convergence</span>
       </div>
 
       <!-- escalation ladder -->
@@ -434,31 +485,6 @@
         </div>
       </div>
       <p class="ladder-cap reveal">Same method, escalating power — you <b>climb the ladder as the surface grows.</b> This is <em>not</em> about splitting work into parallel lanes; it is about the progression of orchestration <b>depth</b>. A tiny task lives at L0-done-carefully; a campaign earns L2.</p>
-    </div>
-  </div>
-</section>
-
-<!-- ============ TWO LAYERS ============ -->
-<section id="layers">
-  <div class="wrap">
-    <p class="eyebrow reveal">The brake</p>
-    <h2 class="reveal">Two layers: a mindset that's always on, machinery that fires on cue.</h2>
-    <p class="lead reveal">The method has a built-in brake so it never over-engineers a simple request. The disposition runs everywhere; the heavy machinery only fires for genuinely deep work.</p>
-    <div class="grid g2 reveal">
-      <div class="panel">
-        <span class="tag" style="color:var(--cyan);border-color:var(--line2)">LAYER 1 · always on</span>
-        <h3 style="margin-top:12px">The orchestrator mindset</h3>
-        <p class="muted small">Address every task <b style="color:var(--ink)">as an orchestrator, not a worker.</b> Use search-and-sample to find what matters; read a targeted slice, not a whole file, when a slice will do. <b style="color:var(--ink)">Aggregate and digest</b> rather than consume raw content. This needs no sub-agents at all — it is just how careful work is done, even on the smallest task.</p>
-      </div>
-      <div class="panel">
-        <span class="tag" style="color:var(--violet);border-color:var(--line2)">LAYER 2 · triggered</span>
-        <h3 style="margin-top:12px">The wave machinery</h3>
-        <p class="muted small">The full chain — <b style="color:var(--ink)">study → audit → plan → audit-the-plan → digest → audit-the-digest → execute → test → audit → audit-the-audit → adversarial → independent secondary audit</b> — fires only on an explicit trigger or on confirmed deep-scope work (and then only after surfacing the wave plan for a go/no-go).</p>
-      </div>
-    </div>
-    <div class="callout reveal">
-      <span class="t">The boundary — depth scales to scope</span>
-      <p>Simple tasks stay simple. You do <b>not</b> spawn a swarm to answer "what does this function mean?" or to make a single one-line edit. A single read, a single reply, a small bounded fix — those run directly with the Layer-1 mindset and nothing more. The machinery is reserved for campaigns, plans, investigations, and multi-surface changes. <b>When in doubt, surface a two-line wave plan and ask before firing.</b></p>
     </div>
   </div>
 </section>
@@ -557,6 +583,11 @@
       <div class="mbox pt"><div class="big">50–80%</div><div class="lb">PARTIAL</div><div class="ds">Real-but-missed items exist — a closer seat re-checks against the actual source.</div></div>
       <div class="mbox dv"><div class="big">&lt; 50%</div><div class="lb">DIVERGE</div><div class="ds">The question itself is suspect — escalate it as a design problem.</div></div>
     </div>
+    <div class="reveal" style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:12px;font-family:var(--mono);font-size:11.5px">
+      <span style="padding:5px 12px;border-radius:8px;border:1px solid rgba(94,242,160,.3);color:var(--green)">CONVERGE → promote ▶ next stage</span>
+      <span style="padding:5px 12px;border-radius:8px;border:1px solid rgba(255,209,102,.3);color:var(--gold)">PARTIAL → a closer seat re-checks ⟲ vs source</span>
+      <span style="padding:5px 12px;border-radius:8px;border:1px solid rgba(255,122,122,.3);color:var(--red)">DIVERGE → escalate as a design problem ⟲</span>
+    </div>
 
     <div class="callout reveal">
       <span class="t">The human's scarce contribution is doubt</span>
@@ -620,12 +651,69 @@
   </div>
 </section>
 
+<!-- ============ WHEN TO BUILD ============ -->
+<section id="build">
+  <div class="wrap">
+    <p class="eyebrow reveal">The discipline that matters most</p>
+    <h2 class="reveal">When are you allowed to build?</h2>
+    <p class="lead reveal">The single most important judgment in the whole method: a plan is build-ready <b>not because it is written, but because it has survived independent attempts to break it.</b> So the question "may I build yet?" is really "has the converged plan cleared the gauntlet?" The gates below are not taught fresh here — they are simply the <a href="#audit">Audit Superstructure</a> run as a checklist, in order, against the plan.</p>
+    <div class="gauntlet reveal">
+      <div class="gstep"><div class="gk">GATE 1</div><div class="gt2">Independent audit</div><div class="gd">A different agent verifies the plan against source.</div></div>
+      <span class="darrow" aria-hidden="true">→</span>
+      <div class="gstep"><div class="gk">GATE 2</div><div class="gt2">Adversarial attack</div><div class="gd">A new framing actively tries to break it.</div></div>
+      <span class="darrow" aria-hidden="true">→</span>
+      <div class="gstep"><div class="gk">GATE 3</div><div class="gt2">Differently-framed secondary</div><div class="gd">Mandatory — a fresh voice, often a different model/engine.</div></div>
+      <span class="darrow" aria-hidden="true">→</span>
+      <div class="gstep"><div class="gk">GATE 4</div><div class="gt2">Roving checks</div><div class="gd">Time-travel, plan-break, rules/memory probes.</div></div>
+      <span class="darrow" aria-hidden="true">→</span>
+      <div class="gstep"><div class="gk">GATE 5</div><div class="gt2">Nothing-lost pass</div><div class="gd">Confirm no load-bearing item was dropped.</div></div>
+      <span class="darrow" aria-hidden="true">→</span>
+      <div class="gstep"><div class="gk">GATE 6</div><div class="gt2">Prototype-backed</div><div class="gd">Ideally a throwaway prototype has surfaced the spec ambiguities.</div></div>
+    </div>
+    <div class="callout reveal">
+      <span class="t">Real autonomy vs. the illusion of progress</span>
+      <p>A single confident forward-pass <b>covers distance</b> — it produces output fast and feels like progress. But it leaves <b>gaps and potholes</b> nobody graded. Real autonomy is the opposite: slower to start, because the plan must survive being attacked from many sides first — but what ships has been seen from every angle that matters. The cost of the gauntlet is paid once, up front; the cost of a silent gap is paid forever, downstream.</p>
+    </div>
+  </div>
+</section>
+
 <!-- ============ DUAL ORCHESTRATION ============ -->
 <section id="dual">
   <div class="wrap">
     <p class="eyebrow reveal">Layer 2.5 · the ultimate form</p>
     <h2 class="reveal">Paired orchestration — cooperation under one shared ledger.</h2>
-    <p class="lead reveal">For the largest builds, two <b>peer</b> managers run at once — and the names carry the contract. The <b style="color:var(--cyan)">Executor</b> runs the campaign and is the <b>only</b> instance that edits the tree or commits. The <b style="color:var(--magenta)">Shadow</b> is not a sub-agent — it is a peer, running its own thread and its own waves, that reads the source fresh and challenges whether the Executor's <em>premises</em> are actually true, <b>while the work is still steerable</b> — and touches nothing but the ledger. The Shadow can even be a different model or engine, for a genuinely independent framing. They speak only through one append-only, author-tagged <b>Coordination Ledger</b>, and coordination flows <b>both ways</b> — this is cooperation, not surveillance.</p>
+    <p class="lead reveal">For the largest builds, two <b>peer</b> managers run at once — and the names carry the contract. The <b style="color:var(--cyan)">Executor</b> runs the campaign and is the <b>only</b> instance that edits the tree or commits. The <b style="color:var(--magenta)">Shadow</b> is not a sub-agent — it is a peer, running its own thread and its own waves, that reads the source fresh and challenges whether the Executor's <em>premises</em> are actually true, <b>while the work is still steerable</b>, and touches nothing but the ledger. The Shadow can even be a different model or engine, for a genuinely independent framing. They speak only through one append-only, author-tagged <b>Coordination Ledger</b>, and coordination flows <b>both ways</b> — this is cooperation, not surveillance.</p>
+
+    <div class="mflow reveal" role="img" aria-label="Manager-flow matrix">
+<pre>            <span class="c">watches premises ↓</span>                            <span class="c">backstops both ↓</span>
+ ┌──────────────────────────┐  coordinate   ┌──────────────────────────┐
+ │ <span class="ex">EXECUTOR</span> · builds          │◀─ via ledger ─▶│ <span class="sh">SHADOW</span> · verifies          │
+ │ the ONLY editor / committer│  (both ways)  │ premises vs source, LIVE   │
+ │ <span class="ed">edits tree · git commit</span>   │               │ <span class="b">touches nothing but ledger</span> │
+ └────────────┬─────────────┘               └─────────────┬────────────┘
+              │                                            │
+              │            ┌────────────────────┐          │
+              └─── writes ─▶│ <span class="lg">COORDINATION LEDGER</span> │◀── writes ──┘
+               progression  │ append-only · tagged│  OBSERVE / STEER
+               + ACKs       │ the shared spine    │  / BLOCKING
+                            └──────────┬─────────┘
+                                       │ periodic sweep (~20m)
+                            ┌──────────▼──────────┐
+                            │ <span class="sr">SENIOR</span> · backstop      │  steps in ON TRIGGER:
+                            │ carries full history  │  escalation · disagreement
+                            │ near-zero cost        │  · silence · unaudited commit
+                            └───────────────────────┘
+   <span class="c">────────────────────── SUCCESSOR HANDOFF ──────────────────────────</span>
+   <span class="ex">EXEC</span> context thins ──▶ cold-start a fresh <span class="ex">EXEC</span> from handover-doc + ledger
+   the outgoing instance ─────────▶ becomes <span class="sr">SENIOR</span>   <span class="c">(the role outlives the instance)</span></pre>
+    </div>
+    <div class="mflow-legend reveal">
+      <span style="color:var(--cyan)"><b>EXECUTOR</b> builds·commits</span>
+      <span style="color:var(--magenta)"><b>SHADOW</b> verifies premises live</span>
+      <span style="color:var(--violet)"><b>SENIOR</b> backstop</span>
+      <span style="color:var(--gold)"><b>LEDGER</b> the shared spine</span>
+      <span style="color:var(--dim)">→ hand-to · ◀▶ coordinate · ↓ watch</span>
+    </div>
 
     <div class="marktypes reveal">
       <span class="mt" style="color:var(--mut)">OBSERVATION · no ack needed</span>
@@ -708,27 +796,6 @@
   </div>
 </section>
 
-<!-- ============ WHEN TO BUILD ============ -->
-<section id="build">
-  <div class="wrap">
-    <p class="eyebrow reveal">The discipline that matters most</p>
-    <h2 class="reveal">When are you allowed to build?</h2>
-    <p class="lead reveal">The single most important judgment in the whole method: a plan is not build-ready because it is <em>written</em>. It is build-ready because it has <b>survived independent attempts to break it.</b> You build only after the converged plan clears the full gauntlet.</p>
-    <div class="gauntlet reveal">
-      <div class="gstep"><div class="gk">GATE 1</div><div class="gt2">Independent audit</div><div class="gd">A different agent verifies the plan against source.</div></div>
-      <div class="gstep"><div class="gk">GATE 2</div><div class="gt2">Adversarial attack</div><div class="gd">A new framing actively tries to break it.</div></div>
-      <div class="gstep"><div class="gk">GATE 3</div><div class="gt2">Differently-framed secondary</div><div class="gd">Mandatory — a fresh voice, often a different model/engine.</div></div>
-      <div class="gstep"><div class="gk">GATE 4</div><div class="gt2">Roving checks</div><div class="gd">Time-travel, plan-break, rules/memory probes.</div></div>
-      <div class="gstep"><div class="gk">GATE 5</div><div class="gt2">Nothing-lost pass</div><div class="gd">Confirm no load-bearing item was dropped.</div></div>
-      <div class="gstep"><div class="gk">GATE 6</div><div class="gt2">Prototype-backed</div><div class="gd">Ideally a throwaway prototype has surfaced the spec ambiguities.</div></div>
-    </div>
-    <div class="callout reveal">
-      <span class="t">Real autonomy vs. the illusion of progress</span>
-      <p>A single confident forward-pass <b>covers distance</b> — it produces output fast and feels like progress. But it leaves <b>gaps and potholes</b> nobody graded. Real autonomy is the opposite: slower to start, because the plan must survive being attacked from many sides first — but what ships has been seen from every angle that matters. The cost of the gauntlet is paid once, up front; the cost of a silent gap is paid forever, downstream.</p>
-    </div>
-  </div>
-</section>
-
 <!-- ============ THE CLEAN LOOP ============ -->
 <section id="loop">
   <div class="wrap">
@@ -747,6 +814,43 @@
     <div class="loop-stage reveal"><div class="n">↳</div><div><h3>Test &amp; audit-of-execution</h3><p>Verify the build, then audit the verification.</p></div></div>
     <div class="loop-stage reveal"><div class="n">4</div><div><h3>Audit-of-audit → adversarial → independent secondary</h3><p>Confirm the audit was complete, attack from a new angle, then bring a differently-framed outside voice.</p></div></div>
     <div class="loop-stage reveal"><div class="n">5</div><div><h3>Fold &amp; hand off</h3><p>Merge everything additively and pass a clean baton — so the next session loses nothing.</p></div></div>
+  </div>
+</section>
+
+<!-- ============ PROCESSING ============ -->
+<section id="processing">
+  <div class="wrap">
+    <p class="eyebrow reveal">The discipline that keeps the loop clean</p>
+    <h2 class="reveal">Processing — simmer the round down, then build on the digest.</h2>
+    <p class="lead reveal">Planning is not one pass — it is iterative rounds, and every round generates a flood of raw context: documents read, code surfaces touched, findings from many seats. Left untended that pile grows, and each new round inherits the noise of every round before it.</p>
+    <p class="lead reveal" style="margin-top:14px">At the close of a round you don't just save what you gathered — you <b style="color:var(--ink)">cook it down</b>: aggregate the outputs, reduce and concentrate, <b style="color:var(--ink)">simmer</b> it like a stock, then audit, test, try to break it, and run an adversarial pass. What survives — the <b style="color:var(--ink)">aggregated, digested document set</b> — becomes the base the next round stands on.</p>
+
+    <div class="dloop reveal">
+      <p style="text-align:center;font-family:var(--mono);font-size:11px;letter-spacing:2px;color:var(--mut);margin:0 0 16px;text-transform:uppercase">One planning round — each round's surface SHRINKS to its digest</p>
+      <div class="dloop-rail">
+        <div class="dstep"><div class="dk">Round N · gather</div><div class="dt">Docs + code exposure</div><div class="dd">Scouts pull the raw substrate — wide, unreduced.</div><div class="dwidth">▓▓▓▓▓▓▓▓ wide</div></div>
+        <div class="darrow">→</div>
+        <div class="dstep"><div class="dk">aggregate</div><div class="dt">Reduce · simmer</div><div class="dd">Fold many findings into one surface.</div><div class="dwidth">▓▓▓▓▓ ─</div></div>
+        <div class="darrow">→</div>
+        <div class="dstep"><div class="dk">attack</div><div class="dt">Audit · test · break</div><div class="dd">An adversarial pass strips what can't survive.</div><div class="dwidth">▓▓▓ ──</div></div>
+        <div class="darrow">→</div>
+        <div class="dstep shrink"><div class="dk">Round N · output</div><div class="dt">Digested base</div><div class="dd">Dense, load-bearing residue only.</div><div class="dwidth">▓ ── tight</div></div>
+      </div>
+      <div style="text-align:center;margin-top:14px"><span style="font-family:var(--mono);font-size:12.5px;color:var(--cyan);border:1px dashed var(--line2);border-radius:10px;padding:9px 14px;display:inline-block">⟳ the digested base becomes the INPUT to Round N+1 — never the raw round again</span></div>
+      <div class="dguards">
+        <div class="dguard"><span class="gh">GUARD-RAIL · DON'T RE-READ</span><br/>Later rounds read the <b>digest</b>, not the earlier rounds — re-reading raw history only when a roving specialist is <b>time-travelling</b> a specific claim.</div>
+        <div class="dguard"><span class="gh">GUARD-RAIL · NOTHING-LOST</span><br/>A diff seat verifies the aggregation <b>dropped nothing load-bearing</b> before the round closes — shrinkage is allowed, loss is not.</div>
+      </div>
+    </div>
+
+    <p class="lead reveal" style="margin-top:18px"><b style="color:var(--ink)">The default for the next round is firm: work only from the latest digest — never re-read the original sprawl.</b> The raw materials aren't deleted; they're just no longer the working surface. An agent reaches back only for a deliberate <b style="color:var(--ink)">time-travel task</b> (re-checking a specific point of history), never as a routine "let me re-read everything to be sure."</p>
+    <p class="lead reveal" style="margin-top:14px">Three habits govern it: <b style="color:var(--ink)">prune context as you go; always work from the latest digested-and-combined surface, not the original pile; and on every aggregation, run sub-agents whose only job is to verify nothing load-bearing was lost.</b> That last is the safety net — the same <b style="color:var(--ink)">nothing-lost</b> auditor from the standing watch — and it is exactly what makes pruning this aggressive safe.</p>
+    <p class="lead reveal" style="margin-top:14px"><b style="color:var(--ink)">Context is finite working capital — the digest is the signal, the pile is the noise.</b> This is universal to any planning campaign deep enough to take more than one round.</p>
+
+    <div class="callout cy reveal">
+      <span class="t">Cook each round down to its essence</span>
+      <p><em>"The digest is the signal; the pile is the noise. Cook each round down to its essence, build the next round on that — and trust the nothing-lost watch to prove you dropped nothing that mattered."</em></p>
+    </div>
   </div>
 </section>
 
@@ -773,7 +877,7 @@
     <div class="ess">
       <p style="margin-top:0"><b>In one breath:</b> One person runs deep work as a swarm of AI agents instead of doing it alone. The manager agent never carries the work in its own head — it <b>orchestrates</b>: it splits the problem into pieces, sends typed sub-agents (scouts, workers, mathematicians, auditors) to study and build each piece in isolation, then folds their results and measures how much independent angles agree. <b>Agreement — not the manager's say-so — is what lets the work advance.</b></p>
       <p>Crucially, the same mode governs planning and building. You don't drop out of orchestration to "just code it"; the execution phase runs the identical wave method as the planning phase, with the same audits and convergence checks. Every deliverable is verified by a <b>different</b> agent, attacked adversarially, re-checked by a differently-framed secondary (sometimes a different model or engine), and — for the largest builds — watched live by a peer <b>shadow manager</b> through a shared, append-only ledger where the main manager must answer every challenge rather than silently ignore it.</p>
-      <p style="margin-bottom:0">The discipline scales to the work: a one-line question stays a one-line answer; a campaign earns the full machinery and a paired run. And the gate is firm — you build only after the plan has survived independent attempts to break it, because a confident forward-pass merely covers distance while leaving silent gaps, whereas convergence across many angles is a conviction no single pass can manufacture. <b>That is the method.</b></p>
+      <p style="margin-bottom:0">The discipline scales to the work: a one-line question stays a one-line answer; a campaign earns the full machinery and a paired run. And the gate is firm — you build only after the plan has survived independent attempts to break it, because a confident forward-pass merely covers distance while leaving silent gaps, whereas convergence across many angles is a conviction no single pass can manufacture. <b>That is the method.</b> To actually run it, invoke the <b>orchestrator-mode</b> skill — this page is its companion explainer.</p>
     </div>
     <div class="colophon" style="margin-top:26px;padding-top:18px;border-top:1px solid var(--line2);font-size:13.5px;color:var(--mut);line-height:1.7">
       <div style="font-family:var(--mono);letter-spacing:.5px;color:var(--ink)">◇ MAESTRO · The Orchestration Method</div>
